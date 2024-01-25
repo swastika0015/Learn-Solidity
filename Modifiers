@@ -29,5 +29,13 @@ contract PausibleToken {
     function unPause() public onlyOwner{
         paused = false;
     }
+
+    function transfer(address to, uint amount) public notPaused{
+        require(balances[msg.sender] >= amount, "Insufficient balance!!");
+
+        balances[msg.sender] += amount;
+        balances[to] -= amount;
+
+    }
 }
 
